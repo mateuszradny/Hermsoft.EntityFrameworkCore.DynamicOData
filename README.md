@@ -1,0 +1,1 @@
+# Hermsoft.EntityFrameworkCore.DynamicOData
