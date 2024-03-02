@@ -1,0 +1,9 @@
+steps:
+
+  - name: Publish DotNet
+    uses: SpringHgui/publish-nuget@1.0.1
+    with:
+      PROJECT_FILE_PATH: src/Hermsoft.EntityFrameworkCore.DynamicOData/Hermsoft.EntityFrameworkCore.DynamicOData.csproj
+      VERSION_STATIC: $(Version)
+      NUGET_KEY: # optional
+      INCLUDE_SYMBOLS: true

@@ -1,0 +1,4 @@
+variables:
+- template: common.yml
+- name: Environment
+  value: prod

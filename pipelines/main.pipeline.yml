@@ -1,0 +1,14 @@
+trigger:
+- main
+
+stages:
+  - stage: build_test_publishsdk
+    displayName: Build & Test & Publish SDK
+    jobs:
+    - job: build_test_publishsdk
+      displayName: Build & Test & Publish SDK
+      variables:
+        - template: variables/test.yml
+      steps:
+      - template: jobs/build-and-test.yml
+      - template: jobs/publish-nugets-and-symbols.yml

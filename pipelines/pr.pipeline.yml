@@ -1,0 +1,14 @@
+trigger: none
+
+pr:
+- main
+
+stages:
+  - stage: Build
+    displayName: Build stage
+    jobs:
+    - job: BuildJob
+      variables:
+        - template: variables/test.yml
+      steps:
+      - template: jobs/build-and-test.yml
