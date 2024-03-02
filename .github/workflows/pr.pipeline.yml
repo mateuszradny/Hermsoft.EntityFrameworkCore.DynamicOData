@@ -16,5 +16,5 @@ jobs:
       - name: Build & Test
         uses: ./.github/workflows/jobs/build-and-test.yml
         with:
-          build-configuration: $BuildConfiguration
-          version: $Version
+          build-configuration: ${{ env.BuildConfiguration }}
+          version: ${{ env.Version }}

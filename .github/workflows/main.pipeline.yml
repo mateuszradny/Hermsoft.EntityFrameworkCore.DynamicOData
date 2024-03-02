@@ -16,9 +16,9 @@ jobs:
       - name: Build & Test
         uses: ./.github/actions/build-and-test
         with:
-          build-configuration: $BuildConfiguration
-          version: $Version
+          build-configuration: ${{ env.BuildConfiguration }}
+          version: ${{ env.Version }}
       - name: Publish Nugets
         uses: ./.github/actions/publish-nugets-and-symbols
         with:
-          version: $Version
+          version: ${{ env.Version }}
