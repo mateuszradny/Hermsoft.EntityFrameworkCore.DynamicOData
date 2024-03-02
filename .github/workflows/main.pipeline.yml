@@ -13,4 +13,4 @@ jobs:
       - name: Build & Test
         uses: .github/workflows/jobs/build-and-test.yml
       - name: Publish Nugets
-        uses: .github/workflows/jobs//publish-nugets-and-symbols.yml
+        uses: .github/workflows/jobs/publish-nugets-and-symbols.yml
