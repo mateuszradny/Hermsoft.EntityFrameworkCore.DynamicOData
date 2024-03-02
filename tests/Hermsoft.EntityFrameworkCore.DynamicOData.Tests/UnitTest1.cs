@@ -5,7 +5,8 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
         [Fact]
         public void Test1()
         {
-
+            var test = new Class1();
+            Assert.True(test != null);
         }
     }
 }
