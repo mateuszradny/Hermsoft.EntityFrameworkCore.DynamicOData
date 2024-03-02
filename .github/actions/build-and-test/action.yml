@@ -37,7 +37,7 @@ runs:
   - name: Code Coverage Report
     uses: irongut/CodeCoverageSummary@v1.3.0
     with:
-      filename: coverage/**/coverage.cobertura.xml
+      filename: tests/**/coverage.cobertura.xml
       badge: true
       fail_below_min: true
       format: markdown
