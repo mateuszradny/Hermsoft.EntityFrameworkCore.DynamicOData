@@ -1,4 +1,9 @@
-steps:
+name: publish-nugets-and-symbols
+description: Publish Nugets & Symbols
+
+runs:
+  using: 'composite'
+  steps:
 
   - name: Publish DotNet
     uses: SpringHgui/publish-nuget@1.0.1

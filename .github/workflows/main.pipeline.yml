@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest 
     steps:
       - name: Build & Test
-        uses: ./.github/workflows/jobs/build-and-test.yml
+        uses: ./.github/actions/build-and-test
         with:
           files: variables/common.yml variables/test.yml 
       - name: Publish Nugets
-        uses: ./.github/workflows/jobs/publish-nugets-and-symbols.yml
+        uses: ./.github/actions/publish-nugets-and-symbols
         with:
           files: variables/common.yml variables/test.yml 

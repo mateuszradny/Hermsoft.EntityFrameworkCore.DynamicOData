@@ -1,4 +1,9 @@
-steps:
+name: build-and-test
+description: Build & Test
+
+runs:
+  using: 'composite'
+  steps:
   
   - uses: actions/checkout@v3
   
@@ -8,12 +13,15 @@ steps:
       dotnet-version: 9.0.x
 
   - name: Restore dependencies
+    shell: bash
     run: dotnet restore
 
   - name: Build
+    shell: bash
     run: dotnet build --no-restore -c $(BuildConfiguration) -p:AssemblyVersion=$(Version) -p:Version=$(Version) -p:PackageVersion=$(Version) 
 
   - name: Test
+    shell: bash
     run: dotnet test --no-build --verbosity normal --configuration $(BuildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
 
   - name: Code Coverage Report
