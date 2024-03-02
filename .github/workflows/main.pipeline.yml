@@ -1,0 +1,16 @@
+name: Main Branch Workflow
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest 
+    steps:
+      - name: Load Vars
+        uses: .github/workflows/variables/test.yml
+      - name: Build & Test
+        uses: .github/workflows/jobs/build-and-test.yml
+      - name: Publish Nugets
+        uses: .github/workflows/jobs//publish-nugets-and-symbols.yml

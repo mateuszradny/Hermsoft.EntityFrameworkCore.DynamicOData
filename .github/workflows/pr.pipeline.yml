@@ -1,0 +1,14 @@
+name: PR into Main Branch Workflow
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest 
+    steps:
+      - name: Load Vars
+        uses: .github/workflows/variables/test.yml
+      - name: Build & Test
+        uses: .github/workflows/jobs/build-and-test.yml
