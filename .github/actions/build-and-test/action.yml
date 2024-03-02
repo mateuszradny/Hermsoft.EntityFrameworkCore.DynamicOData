@@ -1,6 +1,16 @@
 name: build-and-test
 description: Build & Test
 
+inputs:
+  build-configuration:
+    description: 'Build Configuration'
+    default: 'Debug'
+    required: false
+  version: 
+    description: 'Version'
+    default: '0.0.1'
+    required: false
+
 runs:
   using: 'composite'
   steps:
@@ -18,11 +28,11 @@ runs:
 
   - name: Build
     shell: bash
-    run: dotnet build --no-restore -c $(BuildConfiguration) -p:AssemblyVersion=$(Version) -p:Version=$(Version) -p:PackageVersion=$(Version) 
+    run: dotnet build --no-restore -c ${{ inputs.build-configuration }} -p:AssemblyVersion=${{ inputs.version }} -p:Version=${{ inputs.version }} -p:PackageVersion=${{ inputs.version }} 
 
   - name: Test
     shell: bash
-    run: dotnet test --no-build --verbosity normal --configuration $(BuildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+    run: dotnet test --no-build --verbosity normal --configuration ${{ inputs.build-configuration }} --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
 
   - name: Code Coverage Report
     uses: irongut/CodeCoverageSummary@v1.3.0

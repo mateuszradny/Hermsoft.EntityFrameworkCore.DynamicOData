@@ -1,6 +1,12 @@
 name: publish-nugets-and-symbols
 description: Publish Nugets & Symbols
 
+inputs:
+  version: 
+    description: 'Version'
+    default: '0.0.1'
+    required: false
+
 runs:
   using: 'composite'
   steps:
@@ -9,6 +15,6 @@ runs:
     uses: SpringHgui/publish-nuget@1.0.1
     with:
       PROJECT_FILE_PATH: src/Hermsoft.EntityFrameworkCore.DynamicOData/Hermsoft.EntityFrameworkCore.DynamicOData.csproj
-      VERSION_STATIC: $(Version)
+      VERSION_STATIC: ${{ inputs.version }}
       NUGET_KEY: # optional
       INCLUDE_SYMBOLS: true
