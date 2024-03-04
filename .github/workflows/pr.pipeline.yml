@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build & Test
-        uses: ./.github/workflows/jobs/build-and-test.yml
+        uses: ./.github/actions/build-and-test
         with:
           build-configuration: ${{ env.BuildConfiguration }}
           version: ${{ env.Version }}
