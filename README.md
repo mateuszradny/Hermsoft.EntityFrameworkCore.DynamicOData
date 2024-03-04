@@ -35,7 +35,6 @@
   </a>
 
 <h3 align="center">Hermsoft.EntityFrameworkCore.DynamicOData</h3>
-
   <p align="center">
     This is a library that makes it easy to expose OData APIs based on DbContext definitions. By using this library you can save time on required controller code, model edm, etc.
     <br />
@@ -81,7 +80,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Logo][logo]](https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData)
 
 Library created as part of the (https://100commitow.com) competition
 
@@ -91,9 +90,9 @@ Library created as part of the (https://100commitow.com) competition
 
 ### Built With
 
-- [x] [.NET Core]][https://dotnet.microsoft.com/]
-- [x] [EF Core]][https://learn.microsoft.com/en-us/ef/core/]
-- [x] [OData]][https://www.odata.org/]
+- [x] [.NET Core][https://dotnet.microsoft.com/]
+- [x] [EF Core][https://learn.microsoft.com/en-us/ef/core/]
+- [x] [OData][https://www.odata.org/]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -201,7 +200,7 @@ Project Link: [https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.Dyna
 [license-url]: https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/mateusz-radny-71379ab5/
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: images/logo.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
