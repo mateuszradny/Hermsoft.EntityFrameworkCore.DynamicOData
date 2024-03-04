@@ -90,9 +90,9 @@ Library created as part of the (https://100commitow.com) competition
 
 ### Built With
 
-- [.NET Core][https://dotnet.microsoft.com/]
-- [EF Core][https://learn.microsoft.com/en-us/ef/core/]
-- [OData][https://www.odata.org/]
+- [.NET Core](https://dotnet.microsoft.com/)
+- [EF Core](https://learn.microsoft.com/en-us/ef/core/)
+- [OData](https://www.odata.org/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
