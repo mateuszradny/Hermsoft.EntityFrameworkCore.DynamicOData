@@ -1,0 +1,6 @@
+@Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi_HostAddress = http://localhost:5117
+
+GET {{Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
