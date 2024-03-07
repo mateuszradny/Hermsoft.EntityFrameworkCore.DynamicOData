@@ -14,5 +14,12 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
             var response = await HttpClient.GetAsync("/odata/Users");
             response.EnsureSuccessStatusCode();
         }
+
+        [Fact]
+        public async Task Get_RequestAllUsersWithRoles()
+        {
+            var response = await HttpClient.GetAsync("/odata/Users");
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

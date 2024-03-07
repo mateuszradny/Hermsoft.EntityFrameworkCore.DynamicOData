@@ -1,5 +1,8 @@
-﻿namespace Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Models.Sales
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Models.Sales
 {
+    [PrimaryKey(nameof(OrderId), nameof(ProductId))]
     public class OrderProduct
     {
         public required int OrderId { get; set; }
