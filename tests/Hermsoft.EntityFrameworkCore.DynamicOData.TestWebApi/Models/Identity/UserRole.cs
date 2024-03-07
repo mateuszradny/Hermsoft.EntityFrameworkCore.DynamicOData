@@ -1,13 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Models.Identity
 {
+    [PrimaryKey(nameof(UserId), nameof(RoleId))]
     public class UserRole
     {
-        [Key]
         public required Guid UserId { get; set; }
 
-        [Key]
         public required Guid RoleId { get; set; }
 
         public User? User { get; set; }
