@@ -1,4 +1,5 @@
-﻿using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Data;
+﻿using Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Seeders;
+using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -22,7 +23,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Common
         {
             builder.ConfigureTestServices(services =>
             {
-                var descriptorType = typeof(DbContextOptions<TestDbContext>);
+                var descriptorType = typeof(DbContextOptions<DynamicODataDbContext>);
 
                 var descriptor = services
                     .SingleOrDefault(s => s.ServiceType == descriptorType);
@@ -35,6 +36,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Common
                 var connectionString = _dbContainer.GetConnectionString();
 
                 services.AddDbContext<TestDbContext>(options => options.UseSqlServer(connectionString));
+                services.AddScoped<DynamicODataDbContext>(provider => provider.GetRequiredService<TestDbContext>());
             });
         }
 
@@ -43,7 +45,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Common
             await _dbContainer.StartAsync();
 
             var connectionString = _dbContainer.GetConnectionString();
-            using var context = new TestDbContext(new DbContextOptionsBuilder<TestDbContext>()
+            using var context = new DynamicODataDbContext(new DbContextOptionsBuilder<DynamicODataDbContext>()
                 .UseSqlServer(connectionString)
                 .Options);
 
