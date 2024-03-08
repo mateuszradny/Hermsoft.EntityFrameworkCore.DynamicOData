@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<TestDbContext>(options =>
+builder.Services.AddDbContext<DynamicODataDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestDbContext"))
 );
 
