@@ -1,11 +1,6 @@
 ﻿using Bogus;
 using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Models.Identity;
 using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Models.Sales;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Seeders
 {
@@ -19,15 +14,15 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Seeders
         public static List<Product> Products = [];
         public static List<OrderProduct> OrderProducts = [];
 
-        public static void Init(int count)
-        {
-            var userFaker = new Faker<User>()
+        private static Faker<User> _userFaker = new Faker<User>()
                 .RuleFor(x => x.Id, _ => Guid.NewGuid())
                 .RuleFor(x => x.Name, f => f.Name.FirstName())
                 .RuleFor(x => x.Email, (f, x) => f.Internet.Email(x.Name))
                 .RuleFor(x => x.Password, f => f.Internet.Password());
 
-            Users = userFaker.Generate(count);
+        public static void Init(int count)
+        {
+            Users = _userFaker.Generate(count);
 
             var roleFaker = new Faker<Role>()
                 .RuleFor(x => x.Id, _ => Guid.NewGuid())
@@ -64,9 +59,9 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Seeders
                 .RuleFor(x => x.Number, f => f.Random.Int(1, 10));
 
             OrderProducts = orderProductsFaker.Generate(count);
-
-
         }
 
+        public static User CreateUser()
+            => _userFaker.Generate();
     }
 }
