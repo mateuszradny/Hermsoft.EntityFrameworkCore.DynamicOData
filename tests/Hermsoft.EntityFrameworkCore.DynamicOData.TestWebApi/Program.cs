@@ -1,3 +1,4 @@
+using Hermsoft.EntityFrameworkCore.DynamicOData;
 using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,9 @@ builder.Services.AddDbContext<DynamicODataDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestDbContext"))
 );
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddDynamicOData<DynamicODataDbContext>(options => options.RoutePrefix = "odata");
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
