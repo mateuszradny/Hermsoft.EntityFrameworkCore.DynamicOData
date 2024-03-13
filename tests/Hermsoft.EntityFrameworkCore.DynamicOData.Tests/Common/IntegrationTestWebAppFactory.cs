@@ -60,7 +60,9 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Common
         public async Task ResetAsync()
         {
             var connectionString = _dbContainer.GetConnectionString();
-            await _respawner.ResetAsync(connectionString);
+
+            if (_respawner != null)
+                await _respawner.ResetAsync(connectionString);
         }
 
         public new Task DisposeAsync()
