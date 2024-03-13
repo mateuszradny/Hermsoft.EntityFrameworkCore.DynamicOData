@@ -6,7 +6,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData
 {
     public static class DynamicODataMvcBuilderExtensions
     {
-        public static IMvcBuilder AddDynamicOData<TDbContext>(this IMvcBuilder builder, Action<DynamicODataOptions> setupAction)
+        public static IMvcBuilder AddDynamicOData<TDbContext>(this IMvcBuilder builder, Action<DynamicODataOptions<TDbContext>> setupAction)
             where TDbContext : DbContext
         {
             if (builder == null)
@@ -20,7 +20,11 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData
             }
 
             builder.AddOData();
-            builder.Services.Configure(setupAction);
+
+            var options = new DynamicODataOptions<TDbContext>();
+            setupAction(options);
+
+            builder.Services.AddSingleton<DynamicODataOptions>(options);
             return builder;
         }
     }
