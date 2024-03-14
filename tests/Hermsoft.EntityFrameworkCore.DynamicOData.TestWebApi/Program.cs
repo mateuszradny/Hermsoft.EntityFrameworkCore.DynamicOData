@@ -10,7 +10,11 @@ builder.Services.AddDbContext<DynamicODataDbContext>(options =>
 );
 
 builder.Services.AddControllers()
-    .AddDynamicOData<DynamicODataDbContext>(options => options.RoutePrefix = "odata");
+    .AddDynamicOData<DynamicODataDbContext>(options =>
+    {
+        options.RoutePrefix = "odata";
+        options.IsEntityTypeAutorized = type => true;
+    });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

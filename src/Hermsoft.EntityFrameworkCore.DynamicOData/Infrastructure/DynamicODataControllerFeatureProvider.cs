@@ -1,4 +1,5 @@
 ﻿using Hermsoft.EntityFrameworkCore.DynamicOData.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -59,6 +60,10 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Infrastructure
                             name: $"{DynamicAssemblyName}.{entityType.Model.ModelId:n}.{entityType.ShortName}Controller",
                             attr: TypeAttributes.Public | TypeAttributes.Class,
                             parent: controllerBaseType);
+
+                        var isEntityTypeAutorized = options.IsEntityTypeAutorized(entityType.ClrType);
+                        if (isEntityTypeAutorized)
+                            controllerType.SetCustomAttribute(new CustomAttributeBuilder(typeof(AuthorizeAttribute).GetConstructor(Type.EmptyTypes)!, Array.Empty<object>()));
 
                         controllerTypes.Add(controllerType.CreateType().GetTypeInfo());
                     }
