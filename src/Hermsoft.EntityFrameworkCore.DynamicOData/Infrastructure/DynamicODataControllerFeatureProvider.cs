@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
@@ -57,9 +58,11 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Infrastructure
                         var controllerBaseType = GetControllerBaseType(options.DbContextType, entityType);
 
                         var controllerType = moduleBuilder.DefineType(
-                            name: $"{DynamicAssemblyName}.{entityType.Model.ModelId:n}.{entityType.ShortName}Controller",
+                            name: $"{DynamicAssemblyName}.{options.RoutePrefix.Replace('/', '_')}.{entityType.ShortName}Controller",
                             attr: TypeAttributes.Public | TypeAttributes.Class,
                             parent: controllerBaseType);
+
+                        controllerType.SetCustomAttribute(new CustomAttributeBuilder(typeof(ODataRouteComponentAttribute).GetConstructor([typeof(string)])!, [options.RoutePrefix]));
 
                         var isEntityTypeAutorized = options.IsEntityTypeAutorized(entityType.ClrType);
                         if (isEntityTypeAutorized)
