@@ -1,4 +1,4 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+ <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
@@ -38,11 +38,11 @@
   <p align="center">
     This is a library that makes it easy to expose OData APIs based on DbContext definitions. By using this library you can save time on required controller code, model edm, etc.
     <br />
-    <a href="https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData"><strong>Explore the docs Â»</strong></a>
     <br />
-    ·
+    Â·
     <a href="https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData/issues">Report Bug</a>
-    ·
+    Â·
     <a href="https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData/issues">Request Feature</a>
   </p>
 </div>
