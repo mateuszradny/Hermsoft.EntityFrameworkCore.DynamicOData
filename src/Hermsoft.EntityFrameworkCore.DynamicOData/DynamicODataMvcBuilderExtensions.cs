@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.OData;
+﻿using Hermsoft.EntityFrameworkCore.DynamicOData.Infrastructure;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,12 +20,19 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData
                 ArgumentNullException.ThrowIfNull(setupAction);
             }
 
-            builder.AddOData();
-
             var options = new DynamicODataOptions<TDbContext>();
             setupAction(options);
-
             builder.Services.AddSingleton<DynamicODataOptions>(options);
+
+            builder.AddOData((x, provider) =>
+            {
+                using var scope = builder.Services.BuildServiceProvider().CreateScope();
+                using var context = scope.ServiceProvider.GetRequiredService<TDbContext>();
+
+                x.EnableQueryFeatures();
+                x.AddRouteComponents(options.RoutePrefix, context.GetEdmModel());
+            });
+
             return builder;
         }
     }
