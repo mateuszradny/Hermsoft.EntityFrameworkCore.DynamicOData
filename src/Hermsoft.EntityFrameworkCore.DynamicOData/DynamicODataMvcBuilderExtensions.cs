@@ -1,4 +1,5 @@
 ﻿using Hermsoft.EntityFrameworkCore.DynamicOData.Infrastructure;
+using Hermsoft.EntityFrameworkCore.DynamicOData.Services;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,8 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData
                 x.EnableQueryFeatures();
                 x.AddRouteComponents(options.RoutePrefix, context.GetEdmModel());
             });
+
+            builder.Services.AddScoped<IRequestHandlerService<TDbContext>, DefaultRequestHandlerService<TDbContext>>();
 
             return builder;
         }
