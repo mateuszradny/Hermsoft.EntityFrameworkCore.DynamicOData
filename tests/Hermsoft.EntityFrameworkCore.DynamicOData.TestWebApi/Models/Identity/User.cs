@@ -1,5 +1,6 @@
 ﻿using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Models.Sales;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Models.Identity
 {
@@ -10,7 +11,8 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Models.Identity
         public required string Email { get; set; }
 
         [NotMapped]
-        public required string Password { get; set; }
+        [JsonIgnore]
+        public string Password { get; set; }
 
         public ICollection<UserRole> UserRoles { get; private set; } = new HashSet<UserRole>();
         public ICollection<Order> Orders { get; private set; } = new HashSet<Order>();

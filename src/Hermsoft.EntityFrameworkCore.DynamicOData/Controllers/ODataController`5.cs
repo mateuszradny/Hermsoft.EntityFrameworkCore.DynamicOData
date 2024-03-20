@@ -8,28 +8,28 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Controllers
         where TDbContext : DbContext
         where TEntity : class
     {
-        public async Task<IActionResult> Post([FromBody] TEntity entity)
+        public async Task<IActionResult> Post([FromBody] TEntity entity, CancellationToken cancellationToken = default)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
+            await RequestHandler.Post(entity, cancellationToken);
+            return Created();
         }
 
-        public async Task<IActionResult> Put(TKey1 key1, TKey2 key2, TKey3 key3, TEntity entity)
+        public async Task<IActionResult> Put(TKey1 key1, TKey2 key2, TKey3 key3, [FromBody] TEntity entity, CancellationToken cancellationToken = default)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
+            await RequestHandler.Put([key1, key2, key3], entity, cancellationToken);
+            return Ok();
         }
 
-        public async Task<IActionResult> Patch(TKey1 key1, TKey2 key2, TKey3 key3, [FromBody] Delta<TEntity> entity)
+        public async Task<IActionResult> Patch(TKey1 key1, TKey2 key2, TKey3 key3, [FromBody] Delta<TEntity> entity, CancellationToken cancellationToken = default)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
+            await RequestHandler.Patch([key1, key2, key3], entity, cancellationToken);
+            return Ok();
         }
 
-        public async Task<IActionResult> Delete(TKey1 key1, TKey2 key2, TKey3 key3)
+        public async Task<IActionResult> Delete(TKey1 key1, TKey2 key2, TKey3 key3, CancellationToken cancellationToken = default)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
+            await RequestHandler.Delete<TEntity>([key1, key2, key3], cancellationToken);
+            return Ok();
         }
     }
 }

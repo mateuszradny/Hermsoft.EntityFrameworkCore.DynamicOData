@@ -7,10 +7,10 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Controllers
         where TDbContext : DbContext
         where TEntity : class
     {
-        public async Task<IActionResult> Post([FromBody] TEntity entity)
+        public async Task<IActionResult> Post([FromBody] TEntity entity, CancellationToken cancellationToken = default)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
+            await RequestHandler.Post(entity, cancellationToken);
+            return Created();
         }
     }
 }
