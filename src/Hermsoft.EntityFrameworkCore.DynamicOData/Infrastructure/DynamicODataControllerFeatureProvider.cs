@@ -15,13 +15,13 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Infrastructure
     internal class DynamicODataControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
     {
         private const string DynamicAssemblyName = "Hermsoft.EntityFrameworkCore.DynamicOData.DynamicAssembly";
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IServiceProvider _serviceProvider;
 
-        public DynamicODataControllerFeatureProvider(IHttpContextAccessor httpContextAccessor)
+        public DynamicODataControllerFeatureProvider(IServiceProvider serviceProvider)
         {
-            ArgumentNullException.ThrowIfNull(httpContextAccessor);
+            ArgumentNullException.ThrowIfNull(serviceProvider);
 
-            _httpContextAccessor = httpContextAccessor;
+            _serviceProvider = serviceProvider;
         }
 
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
@@ -38,11 +38,9 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Infrastructure
         {
             var controllerTypes = new List<TypeInfo>();
 
-            var httpContext = _httpContextAccessor.HttpContext;
-            if (httpContext == null)
-                return controllerTypes.ToArray();
+            using var scope = _serviceProvider.CreateScope();
 
-            var optionsCollection = httpContext.RequestServices.GetServices<DynamicODataOptions>();
+            var optionsCollection = scope.ServiceProvider.GetServices<DynamicODataOptions>();
             if (optionsCollection?.Any() == true)
             {
                 var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(DynamicAssemblyName), AssemblyBuilderAccess.Run);
@@ -50,7 +48,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Infrastructure
 
                 foreach (var options in optionsCollection)
                 {
-                    var context = (httpContext.RequestServices.GetRequiredService(options.DbContextType) as DbContext)!;
+                    var context = (scope.ServiceProvider.GetRequiredService(options.DbContextType) as DbContext)!;
                     var entityTypes = context.Model.GetEntityTypes();
 
                     foreach (var entityType in entityTypes)
@@ -58,7 +56,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Infrastructure
                         var controllerBaseType = GetControllerBaseType(options.DbContextType, entityType);
 
                         var controllerType = moduleBuilder.DefineType(
-                            name: $"{DynamicAssemblyName}.{options.RoutePrefix.Replace('/', '_')}.{entityType.ShortName}Controller",
+                            name: $"{DynamicAssemblyName}.{options.RoutePrefix.Replace('/', '_')}.{entityType.ShortName()}Controller",
                             attr: TypeAttributes.Public | TypeAttributes.Class,
                             parent: controllerBaseType);
 

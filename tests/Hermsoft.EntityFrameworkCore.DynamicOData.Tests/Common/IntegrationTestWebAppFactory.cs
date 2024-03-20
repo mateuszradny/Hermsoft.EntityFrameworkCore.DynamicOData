@@ -1,5 +1,4 @@
-﻿using Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Seeders;
-using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Data;
+﻿using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -35,8 +34,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Common
 
                 var connectionString = _dbContainer.GetConnectionString();
 
-                services.AddDbContext<TestDbContext>(options => options.UseSqlServer(connectionString));
-                services.AddScoped<DynamicODataDbContext>(provider => provider.GetRequiredService<TestDbContext>());
+                services.AddDbContext<DynamicODataDbContext>(options => options.UseSqlServer(connectionString));
             });
         }
 
@@ -51,6 +49,8 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Common
 
             await context.Database.MigrateAsync();
 
+            var user = await context.Users.ToListAsync();
+
             _respawner = await Respawner.CreateAsync(connectionString, new RespawnerOptions
             {
                 TablesToIgnore = ["__EFMigrationsHistory"]
@@ -61,8 +61,8 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Common
         {
             var connectionString = _dbContainer.GetConnectionString();
 
-            if (_respawner != null)
-                await _respawner.ResetAsync(connectionString);
+            //if (_respawner != null)
+                //await _respawner.ResetAsync(connectionString);
         }
 
         public new Task DisposeAsync()

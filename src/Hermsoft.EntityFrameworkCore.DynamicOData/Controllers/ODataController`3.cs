@@ -8,28 +8,28 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Controllers
         where TDbContext : DbContext
         where TEntity : class
     {
-        public async Task<IActionResult> Post([FromBody] TEntity entity)
+        public async Task<IActionResult> Post([FromBody] TEntity entity, CancellationToken cancellationToken = default)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
+            await RequestHandler.Post(entity, cancellationToken);
+            return Created();
         }
 
-        public async Task<IActionResult> Put(TKey key, TEntity entity)
+        public async Task<IActionResult> Put(TKey key, [FromBody] TEntity entity, CancellationToken cancellationToken = default)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
+            await RequestHandler.Put([key], entity, cancellationToken);
+            return Ok();
         }
 
-        public async Task<IActionResult> Patch(TKey key, [FromBody] Delta<TEntity> entity)
+        public async Task<IActionResult> Patch(TKey key, [FromBody] Delta<TEntity> entity, CancellationToken cancellationToken = default)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
+            await RequestHandler.Patch([key], entity, cancellationToken);
+            return Ok();
         }
 
-        public async Task<IActionResult> Delete(TKey key)
+        public async Task<IActionResult> Delete(TKey key, CancellationToken cancellationToken = default)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
+            await RequestHandler.Delete<TEntity>([key], cancellationToken);
+            return Ok();
         }
     }
 }

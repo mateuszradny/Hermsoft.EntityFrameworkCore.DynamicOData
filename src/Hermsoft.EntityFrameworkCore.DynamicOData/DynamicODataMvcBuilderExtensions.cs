@@ -1,5 +1,6 @@
 ﻿using Hermsoft.EntityFrameworkCore.DynamicOData.Infrastructure;
 using Hermsoft.EntityFrameworkCore.DynamicOData.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData
             var options = new DynamicODataOptions<TDbContext>();
             setupAction(options);
             builder.Services.AddSingleton<DynamicODataOptions>(options);
+            builder.Services.AddHttpContextAccessor();
 
             builder.AddOData((x, provider) =>
             {
@@ -32,6 +34,10 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData
 
                 x.EnableQueryFeatures();
                 x.AddRouteComponents(options.RoutePrefix, context.GetEdmModel());
+            }).ConfigureApplicationPartManager(x =>
+            {
+                if (!x.FeatureProviders.Any(x => x.GetType() == typeof(DynamicODataControllerFeatureProvider)))
+                    x.FeatureProviders.Add(new DynamicODataControllerFeatureProvider(builder.Services.BuildServiceProvider()));
             });
 
             builder.Services.AddScoped<IRequestHandlerService<TDbContext>, DefaultRequestHandlerService<TDbContext>>();

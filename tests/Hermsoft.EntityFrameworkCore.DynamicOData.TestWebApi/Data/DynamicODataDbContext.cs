@@ -22,6 +22,14 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DynamicODataDbContext).Assembly);
+
+            FakeData.Init(10);
+            modelBuilder.Entity<User>().HasData(FakeData.Users);
+            modelBuilder.Entity<Role>().HasData(FakeData.Roles);
+            modelBuilder.Entity<UserRole>().HasData(FakeData.UserRoles);
+            modelBuilder.Entity<Order>().HasData(FakeData.Orders);
+            modelBuilder.Entity<Product>().HasData(FakeData.Products);
+            modelBuilder.Entity<OrderProduct>().HasData(FakeData.OrderProducts);
         }
     }
 }

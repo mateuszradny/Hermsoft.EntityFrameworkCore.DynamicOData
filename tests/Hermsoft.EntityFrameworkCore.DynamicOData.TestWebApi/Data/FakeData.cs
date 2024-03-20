@@ -2,7 +2,7 @@
 using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Models.Identity;
 using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Models.Sales;
 
-namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Seeders
+namespace Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Data
 {
     public static class FakeData
     {
@@ -34,7 +34,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Seeders
                 .RuleFor(x => x.RoleId, f => f.PickRandom(Roles).Id)
                 .RuleFor(x => x.UserId, f => f.PickRandom(Users).Id);
 
-            UserRoles = userRoleFaker.Generate(count);
+            UserRoles = userRoleFaker.Generate(count * 20).DistinctBy(x => new { x.UserId, x.RoleId }).ToList();
 
             var orderId = 1;
             var orderFaker = new Faker<Order>()
@@ -58,7 +58,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Seeders
                 .RuleFor(x => x.ProductId, f => f.PickRandom(Products).Id)
                 .RuleFor(x => x.Number, f => f.Random.Int(1, 10));
 
-            OrderProducts = orderProductsFaker.Generate(count);
+            OrderProducts = orderProductsFaker.Generate(count * 2).DistinctBy(x => new { x.OrderId, x.ProductId }).ToList();
         }
 
         public static User CreateUser()

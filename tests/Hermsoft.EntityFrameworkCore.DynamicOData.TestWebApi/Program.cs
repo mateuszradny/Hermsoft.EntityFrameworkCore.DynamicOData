@@ -13,7 +13,7 @@ builder.Services.AddControllers()
     .AddDynamicOData<DynamicODataDbContext>(options =>
     {
         options.RoutePrefix = "odata";
-        options.IsEntityTypeAutorized = type => true;
+        options.IsEntityTypeAutorized = type => false;
     });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

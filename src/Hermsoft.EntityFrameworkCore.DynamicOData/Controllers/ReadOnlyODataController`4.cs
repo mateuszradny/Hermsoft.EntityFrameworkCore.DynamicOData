@@ -1,25 +1,19 @@
-﻿using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Routing.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hermsoft.EntityFrameworkCore.DynamicOData.Controllers
 {
-    public class ReadOnlyODataController<TDbContext, TEntity, TKey1, TKey2> : ODataController
+    public class ReadOnlyODataController<TDbContext, TEntity, TKey1, TKey2> : ODataControllerBase<TDbContext, TEntity>
         where TDbContext : DbContext
         where TEntity : class
     {
         [EnableQuery]
-        public async Task<IQueryable<TEntity>> Get()
-        {
-            await Task.Yield();
-            throw new NotImplementedException();
-        }
+        public Task<IQueryable<TEntity>> Get()
+            => Task.FromResult(RequestHandler.Get<TEntity>());
 
         [EnableQuery]
-        public async Task<TEntity> Get(TKey1 key1, TKey2 key2)
-        {
-            await Task.Yield();
-            throw new NotImplementedException();
-        }
+        public async Task<ActionResult<TEntity>> Get(TKey1 key1, TKey2 key2, CancellationToken cancellationToken = default)
+            => await RequestHandler.Get<TEntity>([key1, key2], cancellationToken);
     }
 }
