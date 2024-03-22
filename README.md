@@ -115,12 +115,28 @@ In preparation...
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- USAGE EXAMPLES -->
-## Usage
+## Usage 
+The only thing you need to do to use this library is to call the function `AddDynamicOData()`:
 
-In preparation...
+```csharp
+// Add services to the container.
+builder.Services.AddDbContext<DynamicODataDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TestDbContext"))
+);
+
+builder.Services.AddControllers()
+    .AddDynamicOData<DynamicODataDbContext>(options =>
+    {
+        options.RoutePrefix = "odata";
+        options.IsEntityTypeAutorized = type => false;
+    });
+
+// ...
+
+app.MapControllers();
+```
+After that you can navigate to `/odata/<entity_name`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -129,8 +145,8 @@ In preparation...
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Dynamic OData Controllers and EDM Model
-- [ ] Ability to inject custom code to handle OData requests
+- [x] Dynamic OData Controllers and EDM Model
+- [x] Ability to inject custom code to handle OData requests
 
 See the [open issues](https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData/issues) for a full list of proposed features (and known issues).
 
