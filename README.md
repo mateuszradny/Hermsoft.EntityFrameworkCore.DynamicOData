@@ -136,7 +136,7 @@ builder.Services.AddControllers()
 
 app.MapControllers();
 ```
-After that you can navigate to `/odata/<entity_name`
+After that you can navigate to `/odata/entity_name`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
