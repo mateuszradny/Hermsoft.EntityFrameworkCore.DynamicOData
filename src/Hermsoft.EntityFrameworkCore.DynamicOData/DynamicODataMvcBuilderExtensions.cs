@@ -1,6 +1,5 @@
 ﻿using Hermsoft.EntityFrameworkCore.DynamicOData.Infrastructure;
 using Hermsoft.EntityFrameworkCore.DynamicOData.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
