@@ -35,12 +35,11 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Services
         public virtual async Task Delete<TEntity>(object[] keyValues, CancellationToken cancellationToken = default)
             where TEntity : class
         {
-            var entity = await _context.Set<TEntity>().FindAsync(keyValues, cancellationToken);
-            if (entity != null)
-            {
-                _context.Set<TEntity>().Remove(entity);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+            TEntity? existingEntity = await _context.Set<TEntity>().FindAsync(keyValues, cancellationToken);
+            RecordNotFoundException.ThrowIfNull(existingEntity, keyValues);
+
+            _context.Set<TEntity>().Remove(existingEntity!);
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public virtual async Task Patch<TEntity>(object[] keyValues, Delta<TEntity> entity, CancellationToken cancellationToken = default)
