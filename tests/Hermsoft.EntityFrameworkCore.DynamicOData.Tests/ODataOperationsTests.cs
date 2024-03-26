@@ -7,11 +7,6 @@ using System.Net.Http.Json;
 
 namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
 {
-    public class ODataResult<TEntity>
-    {
-        public TEntity[] value { get; set; }
-    }
-
     public class ODataOperationsTests : BaseIntegrationTest
     {
         public ODataOperationsTests(IntegrationTestWebAppFactory factory) : base(factory)
