@@ -121,22 +121,31 @@ The only thing you need to do to use this library is to call the function `AddDy
 
 ```csharp
 // Add services to the container.
-builder.Services.AddDbContext<DynamicODataDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TestDbContext"))
+builder.Services.AddDbContext<SalesDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SalesConnectionString"))
+);
+
+builder.Services.AddDbContext<HRDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HRConnectionString"))
 );
 
 builder.Services.AddControllers()
-    .AddDynamicOData<DynamicODataDbContext>(options =>
+    .AddDynamicOData<SalesDbContext>(options =>
     {
-        options.RoutePrefix = "odata";
+        options.RoutePrefix = "sales";
         options.IsEntityTypeAutorized = type => false;
+    })
+    .AddDynamicOData<HRDbContext>(options =>
+    {
+        options.RoutePrefix = "hr";
+        options.IsEntityTypeAutorized = type => true;
     });
 
 // ...
 
 app.MapControllers();
 ```
-After that you can navigate to `/odata/entity_name`
+After that you can navigate to `/sales/entity_name` or `/hr/entity_name`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
