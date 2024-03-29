@@ -5,14 +5,25 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<DynamicODataDbContext>(options =>
+builder.Services.AddDbContext<SalesDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TestDbContext"))
+);
+
+builder.Services.AddDbContext<HRDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestDbContext"))
 );
 
 builder.Services.AddControllers()
-    .AddDynamicOData<DynamicODataDbContext>(options =>
+    .AddDynamicOData<SalesDbContext>(options =>
     {
-        options.RoutePrefix = "odata";
+        options.RoutePrefix = "sales";
+        options.IsEntityTypeAutorized = type => false;
+    });
+
+builder.Services.AddControllers()
+    .AddDynamicOData<SalesDbContext>(options =>
+    {
+        options.RoutePrefix = "hr";
         options.IsEntityTypeAutorized = type => false;
     });
 

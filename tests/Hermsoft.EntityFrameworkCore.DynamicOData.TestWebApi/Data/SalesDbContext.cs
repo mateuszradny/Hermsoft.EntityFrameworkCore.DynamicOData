@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Data
 {
-    public class DynamicODataDbContext : DbContext
+    public class SalesDbContext : DbContext
     {
-        public DynamicODataDbContext(DbContextOptions options) : base(options)
+        public SalesDbContext(DbContextOptions<SalesDbContext> options) : base(options)
         {
         }
 
@@ -21,7 +21,8 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DynamicODataDbContext).Assembly);
+            modelBuilder.HasDefaultSchema("sales");
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(SalesDbContext).Assembly);
 
             FakeData.Init(10);
             modelBuilder.Entity<User>().HasData(FakeData.Users);

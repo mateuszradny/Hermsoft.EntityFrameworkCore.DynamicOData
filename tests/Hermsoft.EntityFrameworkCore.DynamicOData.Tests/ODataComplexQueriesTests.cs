@@ -14,7 +14,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
         [Fact]
         public async Task Get_QueryWithSelect_ReturnsOnlySelectedFields()
         {
-            var response = await HttpClient.GetAsync($"/odata/{nameof(Order)}?$select={nameof(Order.TotalPrice)}");
+            var response = await HttpClient.GetAsync($"/sales/{nameof(Order)}?$select={nameof(Order.TotalPrice)}");
             response.Should().BeSuccessful();
 
             var usersResult = await response.Content.ReadFromJsonAsync<ODataResult<Order>>();
@@ -26,7 +26,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
         [Fact]
         public async Task Get_QueryWithExpand_ReturnsCollectionWithExpandedEntities()
         {
-            var response = await HttpClient.GetAsync($"/odata/{nameof(Order)}?$expand={nameof(Order.User)}");
+            var response = await HttpClient.GetAsync($"/sales/{nameof(Order)}?$expand={nameof(Order.User)}");
             response.Should().BeSuccessful();
 
             var usersResult = await response.Content.ReadFromJsonAsync<ODataResult<Order>>();
@@ -36,7 +36,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
         [Fact]
         public async Task Get_QueryWithFilter_ReturnsMatchedEntities()
         {
-            var response = await HttpClient.GetAsync($"/odata/{nameof(Order)}?$filter={nameof(Order.TotalPrice)} gt 1");
+            var response = await HttpClient.GetAsync($"/sales/{nameof(Order)}?$filter={nameof(Order.TotalPrice)} gt 1");
             response.Should().BeSuccessful();
 
             var usersResult = await response.Content.ReadFromJsonAsync<ODataResult<Order>>();
@@ -46,7 +46,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
         [Fact]
         public async Task Get_QueryWithOrderBy_ReturnsSortedEntities()
         {
-            var response = await HttpClient.GetAsync($"/odata/{nameof(Order)}?$orderby={nameof(Order.TotalPrice)}");
+            var response = await HttpClient.GetAsync($"/sales/{nameof(Order)}?$orderby={nameof(Order.TotalPrice)}");
             response.Should().BeSuccessful();
 
             var usersResult = await response.Content.ReadFromJsonAsync<ODataResult<Order>>();
@@ -56,7 +56,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
         [Fact]
         public async Task Get_QueryWithGroupBy_ReturnsGroupedEntities()
         {
-            var response = await HttpClient.GetAsync($"/odata/{nameof(Order)}?$apply=groupby(({nameof(Order.UserId)}), aggregate({nameof(Order.TotalPrice)} with sum as total))");
+            var response = await HttpClient.GetAsync($"/sales/{nameof(Order)}?$apply=groupby(({nameof(Order.UserId)}), aggregate({nameof(Order.TotalPrice)} with sum as total))");
             response.Should().BeSuccessful();
 
             var usersResult = await response.Content.ReadFromJsonAsync<ODataResult<Order>>();
@@ -66,7 +66,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
         [Fact]
         public async Task Get_ComplexQuery_ReturnsValidResult()
         {
-            var response = await HttpClient.GetAsync($"/odata/{nameof(Order)}?$select={nameof(Order.TotalPrice)}&$filter={nameof(Order.UserId)} ne null&$orderby={nameof(Order.TotalPrice)} desc&$expand={nameof(Order.User)}");
+            var response = await HttpClient.GetAsync($"/sales/{nameof(Order)}?$select={nameof(Order.TotalPrice)}&$filter={nameof(Order.UserId)} ne null&$orderby={nameof(Order.TotalPrice)} desc&$expand={nameof(Order.User)}");
             response.Should().BeSuccessful();
         }
     }

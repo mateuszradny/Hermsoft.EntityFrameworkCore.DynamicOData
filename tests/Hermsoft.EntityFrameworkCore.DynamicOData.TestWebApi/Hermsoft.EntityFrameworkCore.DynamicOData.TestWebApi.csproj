@@ -25,4 +25,8 @@
         <ProjectReference Include="..\..\src\Hermsoft.EntityFrameworkCore.DynamicOData\Hermsoft.EntityFrameworkCore.DynamicOData.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>
