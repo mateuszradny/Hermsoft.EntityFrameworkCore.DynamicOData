@@ -16,7 +16,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
         [Fact]
         public async Task Get_Collection_ReturnsNotEmptyCollection()
         {
-            var response = await HttpClient.GetAsync("/odata/User");
+            var response = await HttpClient.GetAsync("/sales/User");
             response.Should().BeSuccessful();
 
             var usersResult = await response.Content.ReadFromJsonAsync<ODataResult<User>>();
@@ -26,10 +26,10 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
         [Fact]
         public async Task Get_SingleRecord_ReturnsSingleRecord()
         {
-            var context = Provider.GetRequiredService<DynamicODataDbContext>();
+            var context = Provider.GetRequiredService<SalesDbContext>();
             var dbUser = context.Users.First();
 
-            var response = await HttpClient.GetAsync($"/odata/User({dbUser.Id})");
+            var response = await HttpClient.GetAsync($"/sales/User({dbUser.Id})");
             response.Should().BeSuccessful();
 
             var user = await response.Content.ReadFromJsonAsync<User>();
@@ -41,39 +41,39 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests
         {
             var newUser = FakeData.CreateUser();
 
-            var response = await HttpClient.PostAsJsonAsync("/odata/User", newUser);
+            var response = await HttpClient.PostAsJsonAsync("/sales/User", newUser);
             response.Should().BeSuccessful();
         }
 
         [Fact]
         public async Task Put_SingleRecord_Returns2XX()
         {
-            var context = Provider.GetRequiredService<DynamicODataDbContext>();
+            var context = Provider.GetRequiredService<SalesDbContext>();
             var dbUser = context.Users.First();
             dbUser.Name = "Test";
             dbUser.Email = "test@test.pl";
 
-            var response = await HttpClient.PutAsJsonAsync($"/odata/User({dbUser.Id})", dbUser);
+            var response = await HttpClient.PutAsJsonAsync($"/sales/User({dbUser.Id})", dbUser);
             response.Should().BeSuccessful();
         }
 
         [Fact]
         public async Task Patch_OneProperty_Returns2XX()
         {
-            var context = Provider.GetRequiredService<DynamicODataDbContext>();
+            var context = Provider.GetRequiredService<SalesDbContext>();
             var dbUser = context.Users.First();
 
-            var response = await HttpClient.PatchAsJsonAsync($"/odata/User({dbUser.Id})", new { Email = "test@test.pl" });
+            var response = await HttpClient.PatchAsJsonAsync($"/sales/User({dbUser.Id})", new { Email = "test@test.pl" });
             response.Should().BeSuccessful();
         }
 
         [Fact]
         public async Task Delete_SingleRecord_Returns2XX()
         {
-            var context = Provider.GetRequiredService<DynamicODataDbContext>();
+            var context = Provider.GetRequiredService<SalesDbContext>();
             var dbUser = context.Users.OrderBy(x => x.Id).Last();
 
-            var response = await HttpClient.DeleteAsync($"/odata/User({dbUser.Id})");
+            var response = await HttpClient.DeleteAsync($"/sales/User({dbUser.Id})");
             response.Should().BeSuccessful();
 
             dbUser = context.Users.FirstOrDefault(x => x.Id == dbUser.Id);

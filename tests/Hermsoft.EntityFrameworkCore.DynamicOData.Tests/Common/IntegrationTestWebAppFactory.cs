@@ -19,19 +19,20 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Common
         {
             builder.ConfigureTestServices(services =>
             {
-                var descriptorType = typeof(DbContextOptions<DynamicODataDbContext>);
-
-                var descriptor = services
-                    .SingleOrDefault(s => s.ServiceType == descriptorType);
-
+                var descriptorType = typeof(DbContextOptions<SalesDbContext>);
+                var descriptor = services.SingleOrDefault(s => s.ServiceType == descriptorType);
                 if (descriptor is not null)
-                {
                     services.Remove(descriptor);
-                }
+
+                descriptorType = typeof(DbContextOptions<HRDbContext>);
+                descriptor = services.SingleOrDefault(s => s.ServiceType == descriptorType);
+                if (descriptor is not null)
+                    services.Remove(descriptor);
 
                 var connectionString = _dbContainer.GetConnectionString();
 
-                services.AddDbContext<DynamicODataDbContext>(options => options.UseSqlServer(connectionString));
+                services.AddDbContext<SalesDbContext>(options => options.UseSqlServer(connectionString));
+                services.AddDbContext<HRDbContext>(options => options.UseSqlServer(connectionString));
             });
         }
 
@@ -40,11 +41,17 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData.Tests.Common
             await _dbContainer.StartAsync();
 
             var connectionString = _dbContainer.GetConnectionString();
-            using var context = new DynamicODataDbContext(new DbContextOptionsBuilder<DynamicODataDbContext>()
+            using var salesContext = new SalesDbContext(new DbContextOptionsBuilder<SalesDbContext>()
                 .UseSqlServer(connectionString)
                 .Options);
 
-            await context.Database.MigrateAsync();
+            await salesContext.Database.MigrateAsync();
+
+            using var hrContext = new HRDbContext(new DbContextOptionsBuilder<HRDbContext>()
+                .UseSqlServer(connectionString)
+                .Options);
+
+            await hrContext.Database.MigrateAsync();
         }
 
         public new Task DisposeAsync()
