@@ -21,7 +21,7 @@ builder.Services.AddControllers()
     });
 
 builder.Services.AddControllers()
-    .AddDynamicOData<SalesDbContext>(options =>
+    .AddDynamicOData<HRDbContext>(options =>
     {
         options.RoutePrefix = "hr";
         options.IsEntityTypeAutorized = type => false;

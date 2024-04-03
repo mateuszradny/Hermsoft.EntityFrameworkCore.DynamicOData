@@ -35,8 +35,11 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData
                 x.AddRouteComponents(options.RoutePrefix, context.GetEdmModel());
             }).ConfigureApplicationPartManager(x =>
             {
-                if (!x.FeatureProviders.Any(x => x.GetType() == typeof(DynamicODataControllerFeatureProvider)))
-                    x.FeatureProviders.Add(new DynamicODataControllerFeatureProvider(builder.Services.BuildServiceProvider()));
+                var provider = x.FeatureProviders.SingleOrDefault(x => x.GetType() == typeof(DynamicODataControllerFeatureProvider));
+                if (provider != null)
+                    x.FeatureProviders.Remove(provider);
+
+                x.FeatureProviders.Add(new DynamicODataControllerFeatureProvider(builder.Services.BuildServiceProvider()));
             });
 
             builder.Services.AddScoped<IRequestHandlerService<TDbContext>, DefaultRequestHandlerService<TDbContext>>();
