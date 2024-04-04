@@ -22,3 +22,4 @@ jobs:
         uses: ./.github/actions/publish-nugets-and-symbols
         with:
           version: ${{ env.Version }}
+          api_key: ${{ secrets.NUGET_API_KEY }}

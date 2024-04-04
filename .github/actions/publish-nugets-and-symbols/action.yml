@@ -6,6 +6,10 @@ inputs:
     description: 'Version'
     default: '0.0.1'
     required: false
+  api_key:
+    description: 'API Key'
+    default: ''
+    required: true
 
 runs:
   using: 'composite'
@@ -16,5 +20,5 @@ runs:
     with:
       PROJECT_FILE_PATH: src/Hermsoft.EntityFrameworkCore.DynamicOData/Hermsoft.EntityFrameworkCore.DynamicOData.csproj
       VERSION_STATIC: ${{ inputs.version }}
-      NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
+      NUGET_KEY: ${{ inputs.api_key }}
       INCLUDE_SYMBOLS: true
