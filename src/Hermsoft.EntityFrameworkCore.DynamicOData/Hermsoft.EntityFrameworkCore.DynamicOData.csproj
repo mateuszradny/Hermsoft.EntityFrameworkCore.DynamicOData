@@ -1,4 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+      <Version>0.0.1</Version>
+      <Authors>Hermsoft Mateusz Radny</Authors>
+      <Company>Hermsoft Mateusz Radny</Company>
+      <PackageProjectUrl>https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData</PackageProjectUrl>
+      <RepositoryUrl>https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData</RepositoryUrl>
+    </PropertyGroup>
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Mapster" />

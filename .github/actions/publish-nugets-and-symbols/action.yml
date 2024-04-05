@@ -16,9 +16,12 @@ runs:
   steps:
 
   - name: Publish DotNet
-    uses: SpringHgui/publish-nuget@1.0.1
+    uses: actions/setup-dotnet@v4
     with:
-      PROJECT_FILE_PATH: src/Hermsoft.EntityFrameworkCore.DynamicOData/Hermsoft.EntityFrameworkCore.DynamicOData.csproj
-      VERSION_STATIC: ${{ inputs.version }}
-      NUGET_KEY: ${{ inputs.api_key }}
-      INCLUDE_SYMBOLS: true
+      dotnet-version: 9.0.x
+
+  - name: Publish the package to nuget.org
+    shell: bash
+    run: dotnet nuget push */bin/Release/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+    env:
+      NUGET_AUTH_TOKEN: ${{ inputs.api_key }}
