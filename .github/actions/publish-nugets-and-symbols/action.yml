@@ -22,6 +22,6 @@ runs:
 
   - name: Publish the package to nuget.org
     shell: bash
-    run: dotnet nuget push */bin/Release/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+    run: dotnet nuget push **/bin/Release/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
     env:
       NUGET_AUTH_TOKEN: ${{ inputs.api_key }}
