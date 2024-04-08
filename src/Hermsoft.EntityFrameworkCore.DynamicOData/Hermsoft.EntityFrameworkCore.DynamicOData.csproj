@@ -6,9 +6,15 @@
       <Company>Hermsoft Mateusz Radny</Company>
       <PackageProjectUrl>https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData</PackageProjectUrl>
       <RepositoryUrl>https://github.com/mateuszradny/Hermsoft.EntityFrameworkCore.DynamicOData</RepositoryUrl>
+      <PackageIcon>logo.png</PackageIcon>
+      <PackageTags>odata;ef;efcore</PackageTags>
     </PropertyGroup>
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <None Include="..\..\images\logo.png">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+        </None>
         <PackageReference Include="Mapster" />
         <PackageReference Include="Microsoft.AspNetCore.OData" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" />
