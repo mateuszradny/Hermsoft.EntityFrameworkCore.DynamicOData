@@ -1,5 +1,4 @@
 using Hermsoft.EntityFrameworkCore.DynamicOData;
-using Hermsoft.EntityFrameworkCore.DynamicOData.Services;
 using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Data;
 using Hermsoft.EntityFrameworkCore.DynamicOData.TestWebApi.Services.HR;
 using Microsoft.EntityFrameworkCore;
@@ -20,16 +19,13 @@ builder.Services.AddControllers()
     {
         options.RoutePrefix = "sales";
         options.IsEntityTypeAutorized = type => false;
-    });
-
-builder.Services.AddControllers()
+    })
     .AddDynamicOData<HRDbContext>(options =>
     {
         options.RoutePrefix = "hr";
         options.IsEntityTypeAutorized = type => false;
+        options.WithRequestHandlerService<HRRequestHandlerService>();
     });
-
-builder.Services.AddScoped<IRequestHandlerService<HRDbContext>, HRRequestHandlerService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

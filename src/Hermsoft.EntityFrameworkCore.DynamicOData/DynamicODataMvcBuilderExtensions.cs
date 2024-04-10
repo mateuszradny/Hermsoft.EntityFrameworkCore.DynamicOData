@@ -42,7 +42,7 @@ namespace Hermsoft.EntityFrameworkCore.DynamicOData
                 x.FeatureProviders.Add(new DynamicODataControllerFeatureProvider(builder.Services.BuildServiceProvider()));
             });
 
-            builder.Services.AddScoped<IRequestHandlerService<TDbContext>, DefaultRequestHandlerService<TDbContext>>();
+            builder.Services.AddScoped(typeof(IRequestHandlerService<TDbContext>), options.RequestHandlerServiceType);
 
             return builder;
         }

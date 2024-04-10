@@ -139,7 +139,8 @@ builder.Services.AddControllers()
     .AddDynamicOData<HRDbContext>(options =>
     {
         options.RoutePrefix = "hr";
-        options.IsEntityTypeAutorized = type => true;
+        options.IsEntityTypeAutorized = type => false;
+        options.WithRequestHandlerService<HRRequestHandlerService>(); // optional
     });
 
 // ...
