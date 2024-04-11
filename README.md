@@ -112,12 +112,13 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-In preparation...
-
+`dotnet add package Hermsoft.EntityFrameworkCore.DynamicOData`
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage 
+
+### Configuration
 The only thing you need to do to use this library is to call the function `AddDynamicOData()`:
 
 ```csharp
@@ -149,6 +150,21 @@ app.MapControllers();
 ```
 After that you can navigate to `/sales/entity_name` or `/hr/entity_name`
 
+### Custom request handler
+You can customize a way of handling requests by implementing `IRequestHandlerService` or override default implementation `DefaultRequestHandlerService` and next pass it to function `WithRequestHandlerService` during configuration.
+```csharp
+ public class HRRequestHandlerService : DefaultRequestHandlerService<HRDbContext>
+ {
+     public HRRequestHandlerService(HRDbContext context) : base(context)
+     {
+     }
+
+     public override Task Delete<TEntity>(object[] keyValues, CancellationToken cancellationToken = default)
+     {
+         throw new InvalidOperationException("Data deletion not allowed.");
+     }
+ }
+```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
