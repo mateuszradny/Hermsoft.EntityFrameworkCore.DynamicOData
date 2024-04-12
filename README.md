@@ -113,6 +113,11 @@ This is an example of how to list things you need to use the software and how to
 ### Installation
 
 `dotnet add package Hermsoft.EntityFrameworkCore.DynamicOData`
+
+![NuGet Version](https://img.shields.io/nuget/v/Hermsoft.EntityFrameworkCore.DynamicOData)
+![NuGet Version](https://img.shields.io/nuget/vpre/Hermsoft.EntityFrameworkCore.DynamicOData)
+![NuGet Downloads](https://img.shields.io/nuget/dt/Hermsoft.EntityFrameworkCore.DynamicOData)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
